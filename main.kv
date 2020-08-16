@@ -1,0 +1,156 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
+<TooltipMDIconButton@MDIconButton+MDTooltip>
+<TextInputToll@MDTextField+MDTooltip>
+
+<InfoAboutDevelopers>
+    orientation: "vertical"
+    spacing: "12dp"
+    
+        
+    MDLabel:
+        text:"name/nick : Cifox"
+    MDLabel:
+        text: "about: junior developer"
+
+
+
+
+
+ScreenManager:
+	id: screen_menager
+    Screen:
+        name : "screen 1"
+
+        BoxLayout:
+            orientation:'vertical'
+
+                    
+
+
+            MDBottomNavigation:
+                
+
+                MDBottomNavigationItem:
+                    name: 'screen 1'
+                    text: 'MAKE QR CODE'
+                    icon: 'qrcode-edit'
+                    BoxLayout:
+                        orientation :'vertical'
+                        ScrollView:
+
+                            MDList:
+                                padding: 3, 0, 0, 0
+                                id: container
+                                TooltipMDIconButton:
+                                    icon: "content-paste"
+                                    tooltip_text:"paste" 
+                                    on_release:
+                                        app.paste() 
+
+                                
+                                MDTextField:
+                                    id : inp
+                                    
+                                    helper_text: "TEXT OR URL"
+                                    helper_text_mode: "on_focus"
+
+                                MDRoundFlatButton:
+                                    text : "create yours qrcode"
+
+
+
+                                    on_release:
+                                        app.get_qrcode()
+
+
+                                        
+
+
+
+
+
+
+                    
+                        Image:
+                            id : qrcode
+                            source: "logs/no_loaded.png" 
+
+
+
+
+
+
+                MDBottomNavigationItem:
+                    name: 'screen 2'
+                    text: 'Settings'
+                    icon: 'settings'
+
+                    ScrollView:
+                        MDList:
+
+                                                              
+                            OneLineIconListItem:
+                                text: "Info about developers"
+                                on_press:
+                                    app.info_about_developer()
+                                IconLeftWidget:
+                                    icon: "account-badge"
+                                    
+                            OneLineIconListItem:
+                                text: "Info about project"
+                                on_press:
+                                    app.info_about_new_funck()
+                                IconLeftWidget:
+                                    icon: "checkbook"
+                            OneLineIconListItem:
+                                text: "List of updates"
+                                on_press:
+                                    app.list_udpate()
+                                IconLeftWidget:
+                                    icon: "update"
+                            OneLineIconListItem:
+                                text: "Report bugs"
+                                on_press:
+                                    screen_menager.current = "screen 2"
+                                IconLeftWidget:
+                                    icon: "bug"
+
+    Screen:
+        name: "screen 2"
+        ScrollView:
+            MDList:
+                TooltipMDIconButton:
+                    icon:"menu-left"
+                    on_press: 
+                        screen_menager.current = "screen 1"
+                MDTextField:
+                    id :subject_bug
+                    hint_text: "Bug topic"
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Enter text"
+                MDTextField:
+                    id : text_bug
+                    hint_text: "Describe the bug"
+                    helper_text: "Here you can describe a bug"
+                    helper_text_mode: "on_focus"
+                MDRoundFlatIconButton:
+                    text: "Report bug"
+                    icon : "send"
+                    on_press : app.send_email()
+
+
+
+
+
+
+
+
+                                                  
+
+
+
+
+
+
+
